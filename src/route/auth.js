@@ -5,6 +5,7 @@ const router = express.Router()
 
 const { User } = require('../class/user')
 const { Confirm } = require('../class/confirm')
+const { Session } = require('../class/session')
 
 User.create({
   email: 'test@email.com',
@@ -75,10 +76,15 @@ router.post('/signup', function (req, res) {
       })
     }
 
-    User.create({ email, password, role })
+    const newUser = User.create({ email, password, role })
+
+    const session = Session.create(newUser)
+
+    Confirm.create(newUser.email)
 
     return res.status(200).json({
       message: 'Користувач успішно зареєстрованний',
+      session,
     })
   } catch (err) {
     return res.status(400).json({
@@ -200,8 +206,146 @@ router.post('/recovery-confirm', function (req, res) {
 
     console.log(user)
 
+    const session = Session.create(user)
+
     return res.status(200).json({
       message: 'Пароль змінено',
+      session,
+    })
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+    })
+  }
+})
+
+// ================================================================
+
+// router.get Створює нам один ентпоїнт
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/signup-confirm', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  const { renew, email } = req.query
+
+  if (renew) {
+    Confirm.create(email)
+  }
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('signup-confirm', {
+    // вказуємо назву контейнера
+    name: 'signup-confirm',
+    // вказуємо назву компонентів
+    component: ['back-button', 'field'],
+
+    // вказуємо назву сторінки
+    title: 'Signup confirm page',
+    // ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
+
+    // вказуємо дані,
+    data: {},
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+router.post('/signup-confirm', function (req, res) {
+  const { code, token } = req.body
+
+  if (!code || !token) {
+    return res.status(400).json({
+      message: "Помилка. Обов'язкові поля відсутні",
+    })
+  }
+
+  try {
+    const session = Session.get(token)
+
+    if (!session) {
+      return res.status(400).json({
+        message: 'Помилка. Ви не увійшли в аккаунт',
+      })
+    }
+
+    const email = Confirm.getData(code)
+
+    if (!email) {
+      return res.status(400).json({
+        message: 'Код не існує',
+      })
+    }
+
+    if (email !== session.user.email) {
+      return res.status(400).json({
+        message: 'Код не дійсний',
+      })
+    }
+
+    const user = User.getByEmail(session.user.email)
+    user.isConfirm = true
+    session.user.isConfirm = true
+
+    return res.status(200).json({
+      message: 'Ви підтвердили свою пошту',
+      session,
+    })
+  } catch (err) {
+    return res.status(400).json({
+      message: err.message,
+    })
+  }
+})
+
+// ================================================================
+
+// router.get Створює нам один ентпоїнт
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/login', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('login', {
+    // вказуємо назву контейнера
+    name: 'login',
+    // вказуємо назву компонентів
+    component: ['back-button', 'field', 'field-password'],
+
+    // вказуємо назву сторінки
+    title: 'Login page',
+    // ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
+
+    // вказуємо дані,
+    data: {},
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+router.post('/login', function (req, res) {
+  const { email, password } = req.body
+
+  if (!email || !password) {
+    return res.status(400).json({
+      message: "Помилка. Обов'язкові поля відсутні",
+    })
+  }
+
+  try {
+    const user = User.getByEmail(email)
+
+    if (!user) {
+      return res.status(400).json({
+        message:
+          'Помилка. Користувач з таким email не існує',
+      })
+    }
+
+    const session = Session.create(user)
+
+    return res.status(200).json({
+      message: 'Ви увішли',
+      session,
     })
   } catch (err) {
     return res.status(400).json({

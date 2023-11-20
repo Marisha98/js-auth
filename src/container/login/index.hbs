@@ -9,7 +9,7 @@
 	</header>
 
 	<form class="page__section">
-		<h1 class="page__title">Реєстрація</h1>
+		<h1 class="page__title">Вхід</h1>
 
 		<div class="form">
 			<div class="form__item">
@@ -25,33 +25,13 @@
 				<span name="password" class="form__error">Mistake</span>
 			</div>
 
-			<div class="form__item">
-				{{> field-password action="signupForm.change" placeholder="Введіть пароль" label="Пароль ще раз"
-				type="password" name="passwordAgain" }}
-				<span name="passwordAgain" class="form__error">Mistake</span>
-			</div>
-
-
-			<div class="form__item">
-				{{> field-select action="signupForm.change" label="Роль"
-				name="role" placeholder="Оберіть роль" list=data.role}}
-				<span name="role" class="form__error">Mistake</span>
-			</div>
-
-			<div class="form__item">
-				{{> field-checkbox action="signupForm.change" label="Ви погоджуєтесь з правилами сервіса"
-				name="isConfirm"}}
-				<span name="isConfirm" class="form__error">Mistake</span>
-			</div>
-
-
 		</div>
 
-		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Зареєструватися</button>
+		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Увійти</button>
 
 		<span class="alert alert--disabled">Увага, помилка!</span>
 
-		<span class="link__prefix">Маєте акаунт? <a href="/login" class="link">Увійти</a></span>
+		<span class="link__prefix">Забули пароль? <a href="/recovery" class="link">Відновити</a></span>
 	</form>
 
 </div>
