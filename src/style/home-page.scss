@@ -1,0 +1,9 @@
+@use './index' as s;
+
+
+.button-section {
+	display: flex;
+	flex-direction: column;
+	gap: s.space(4);
+	margin-bottom: s.space(8);
+}

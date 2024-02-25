@@ -7,27 +7,53 @@ const { User } = require('../class/user')
 
 // ================================================================
 
-// router.get Створює нам один ентпоїнт
+router.get('/home-user', function (req, res) {
+  res.render('home-user', {
+    name: 'home-user',
+    component: [],
 
-// ↙️ тут вводимо шлях (PATH) до сторінки
-router.get('/user-list', function (req, res) {
-  // res.render генерує нам HTML сторінку
+    title: "User's page",
 
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('user-list', {
-    // вказуємо назву контейнера
-    name: 'user-list',
-    // вказуємо назву компонентів
-    component: ['back-button'],
-
-    // вказуємо назву сторінки
-    title: 'User-list page',
-    // ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
-
-    // вказуємо дані,
     data: {},
   })
-  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+router.get('/home-admin', function (req, res) {
+  res.render('home-admin', {
+    name: 'home-admin',
+    component: [],
+
+    title: "Admin's page",
+
+    data: {},
+  })
+})
+
+// ================================================================
+router.get('/home-developer', function (req, res) {
+  res.render('home-developer', {
+    name: 'home-developer',
+    component: [],
+
+    title: "Developers's page",
+
+    data: {},
+  })
+})
+
+// ================================================================
+
+router.get('/user-list', function (req, res) {
+  res.render('user-list', {
+    name: 'user-list',
+
+    component: ['back-button'],
+
+    title: 'User-list page',
+
+    data: {},
+  })
 })
 
 router.get('/user-list-data', function (req, res) {
@@ -35,7 +61,7 @@ router.get('/user-list-data', function (req, res) {
 
   if (list.length === 0) {
     return res.status(400).json({
-      message: 'Список користувачів порожній',
+      message: 'The list of users is empty',
     })
   }
 
@@ -67,7 +93,7 @@ router.get('/user-item-data', function (req, res) {
 
   if (!id) {
     return res.status(400).json({
-      message: 'Потрібно передати ID користувача',
+      message: 'There must be a user ID',
     })
   }
 
@@ -75,7 +101,7 @@ router.get('/user-item-data', function (req, res) {
 
   if (!user) {
     return res.status(400).json({
-      message: 'Користувач з таким ID не існує',
+      message: 'The user with this ID does not exist',
     })
   }
 
@@ -89,5 +115,4 @@ router.get('/user-item-data', function (req, res) {
   })
 })
 
-// Підключаємо роутер до бек-енду
 module.exports = router

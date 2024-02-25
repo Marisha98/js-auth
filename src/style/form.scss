@@ -30,6 +30,14 @@
 
 	@include s.click;
 
+	&--green {
+		background: s.color(green);
+	}
+
+	&--red {
+		background: s.color(red);
+	}
+
 	&:active {
 		opacity: 0.3;
 	}
@@ -81,7 +89,7 @@
 
 .link {
 	color: s.color(main);
-
+	font-style: italic;
 	@include s.click;
 }
 

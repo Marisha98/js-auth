@@ -1,50 +1,49 @@
-{{!
-Це код container файлу для index сторінки,
-в якому міститься код, котрий буде віддаватися по шляху (PATH) - "/"
-}}
-
 <div class="page page--background">
 	<header>
 		{{> back-button}}
 	</header>
 
 	<form class="page__section">
-		<h1 class="page__title">Відновлення паролю</h1>
+		<h1 class="page__title">Password recovery</h1>
+
+		<p class="page__subtitle">An account verification code has been sent to your email. Enter it here</p>
 
 		<div class="form">
 			<div class="form__item">
-				{{> field action="recoveryConfirmForm.change" label="Код" type="number" placeholder="Ваш код"
+				{{> field action="recoveryConfirmForm.change" label="Code" type="number" placeholder="Your code"
 				name="code"}}
 				<span name="code" class="form__error">Mistake</span>
 
 			</div>
 
 			<div class="form__item">
-				{{> field-password action="recoveryConfirmForm.change" placeholder="Введіть пароль" label="Новий пароль"
+				{{> field-password action="recoveryConfirmForm.change" placeholder="Your new password" label="New
+				password"
 				type="password" name="password" }}
 				<span name="password" class="form__error">Mistake</span>
 			</div>
 
 			<div class="form__item">
-				{{> field-password action="recoveryConfirmForm.change" placeholder="Введіть пароль" label="Новий пароль
-				ще
-				раз"
+				{{> field-password action="recoveryConfirmForm.change" placeholder="Your new password" label="New
+				password again"
 				type="password" name="passwordAgain" }}
 				<span name="passwordAgain" class="form__error">Mistake</span>
 			</div>
 		</div>
 
-		<button onclick="recoveryConfirmForm.submit()" class="button button--disabled" type="button">Змінити
-			пароль</button>
+		<span class="link__prefix">Lost your code?
+			<a href="/recovery-confirm" class="link" id="renew">Send it again</a>
+		</span>
 
-		<span class="alert alert--disabled">Увага, помилка!</span>
+		<button onclick="recoveryConfirmForm.submit()" class="button button--disabled" type="button">Change
+			password</button>
+
+		<span class="alert alert--disabled">Mistake</span>
+
+		{{#with data}}
+		{{#if confirm}}
+		<div>{{confirm}}</div>
+		{{/if}}
+		{{/with}}
 	</form>
-
 </div>
-
-{{!
-Цей код містить лише те, що буде виводитись в
-
-<body>
-	Адже наш layout/default.hbs має вже структуру HTML
-	}}

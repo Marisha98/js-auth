@@ -16,15 +16,15 @@ class SignupForm extends Form {
   }
 
   FIELD_ERROR = {
-    IS_EMPTY: 'Введіть значеня в поле',
-    IS_BIG: 'Дуже довге значення, приберіть зайве',
-    EMAIL: 'Введіть коректне значення e-mail адреси',
+    IS_EMPTY: 'Enter the value in the field',
+    IS_BIG: 'Your value exceeds 30 characters',
+    EMAIL: 'Enter the correct value of the e-mail address',
     PASSWORD:
-      'Пароль повинен складатися з не менше ніж 8 символів, включаючи хоча б одну цифру, маленьку та велику літери',
+      'The password must consist of at least 8 characters, including number, lowercase and uppercase letters',
     PASSWORD_AGAIN:
-      'Ваш другий пароль не збігається з першим',
-    NOT_CONFIRM: 'Ви не погоджуєтесь з правилами',
-    ROLE: 'Ви не обрали роль',
+      'This password has to match the first one',
+    NOT_CONFIRM: 'You do not agree with the rules',
+    ROLE: 'You have not selected a role',
   }
 
   validate = (name, value) => {
@@ -32,7 +32,7 @@ class SignupForm extends Form {
       return this.FIELD_ERROR.IS_EMPTY
     }
 
-    if (String(value).length > 20) {
+    if (String(value).length > 30) {
       return this.FIELD_ERROR.IS_BIG
     }
 
@@ -76,7 +76,7 @@ class SignupForm extends Form {
     } else {
       console.log(this.value)
 
-      this.setAlert('progress', 'Завантаження ...')
+      this.setAlert('progress', 'Loading ...')
     }
 
     try {

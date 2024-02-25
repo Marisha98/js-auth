@@ -9,37 +9,37 @@
 	</header>
 
 	<form class="page__section">
-		<h1 class="page__title">Реєстрація</h1>
+		<h1 class="page__title">Registration</h1>
 
 		<div class="form">
 			<div class="form__item">
-				{{> field action="signupForm.change" label="Ел.адреса" type="email" placeholder="Ваш e-mail"
+				{{> field action="signupForm.change" label="Email" type="email" placeholder="Your e-mail"
 				name="email"}}
 				<span name="email" class="form__error">Mistake</span>
 
 			</div>
 
 			<div class="form__item">
-				{{> field-password action="signupForm.change" placeholder="Введіть пароль" label="Пароль"
+				{{> field-password action="signupForm.change" placeholder="Your password" label="Password"
 				type="password" name="password" }}
 				<span name="password" class="form__error">Mistake</span>
 			</div>
 
 			<div class="form__item">
-				{{> field-password action="signupForm.change" placeholder="Введіть пароль" label="Пароль ще раз"
+				{{> field-password action="signupForm.change" placeholder="Your password" label="Password again"
 				type="password" name="passwordAgain" }}
 				<span name="passwordAgain" class="form__error">Mistake</span>
 			</div>
 
 
 			<div class="form__item">
-				{{> field-select action="signupForm.change" label="Роль"
-				name="role" placeholder="Оберіть роль" list=data.role}}
+				{{> field-select action="signupForm.change" label="Role"
+				name="role" placeholder="Choose your role" list=data.role}}
 				<span name="role" class="form__error">Mistake</span>
 			</div>
 
 			<div class="form__item">
-				{{> field-checkbox action="signupForm.change" label="Ви погоджуєтесь з правилами сервіса"
+				{{> field-checkbox action="signupForm.change" label="You agree to the rules of the service"
 				name="isConfirm"}}
 				<span name="isConfirm" class="form__error">Mistake</span>
 			</div>
@@ -47,18 +47,11 @@
 
 		</div>
 
-		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Зареєструватися</button>
+		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Register</button>
 
-		<span class="alert alert--disabled">Увага, помилка!</span>
+		<span class="alert alert--disabled">Mistake</span>
 
-		<span class="link__prefix">Маєте акаунт? <a href="/login" class="link">Увійти</a></span>
+		<span class="link__prefix">Have an account? <a href="/login" class="link">Log in</a></span>
 	</form>
 
 </div>
-
-{{!
-Цей код містить лише те, що буде виводитись в
-
-<body>
-	Адже наш layout/default.hbs має вже структуру HTML
-	}}

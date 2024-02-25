@@ -14,8 +14,6 @@ class UserList extends List {
   loadData = async () => {
     this.updateStatus(this.STATE.LOADING)
 
-    // return null
-
     try {
       const res = await fetch('/user-list-data', {
         method: 'GET',
@@ -92,6 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     if (!window.session || !window.session.user.isConfirm) {
       location.assign('/')
+    }
+
+    if (window.session) {
+      const { user } = window.session
+
+      if (user.role !== 2 && user.role !== 3) {
+        location.assign('/')
+      }
     }
   } catch (e) {}
 

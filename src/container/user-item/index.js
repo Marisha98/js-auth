@@ -53,7 +53,7 @@ class UserItem extends List {
       user: {
         ...data.user,
         role: USER_ROLE[data.user.role],
-        confirm: data.user.isConfirm ? 'Так' : 'Ні',
+        confirm: data.user.isConfirm ? 'Yes' : 'No',
       },
     }
   }
@@ -75,11 +75,11 @@ class UserItem extends List {
 				<span class="data__value skeleton"></span>
 			</div>
 			<div class="data">
-				<span class="data__title ">Роль</span>
+				<span class="data__title ">Role</span>
 				<span class="data__value skeleton"></span>
 			</div>
 			<div class="data">
-				<span class="data__title ">Пошта підтвердженя</span>
+				<span class="data__title ">Mail confirmation</span>
 				<span class="data__value skeleton"></span>
 			</div>
 			`
@@ -99,11 +99,11 @@ class UserItem extends List {
 				<span class="data__value ">${email}</span>
 			</div>
 			<div class="data">
-				<span class="data__title ">Роль</span>
+				<span class="data__title ">Role</span>
 				<span class="data__value ">${role}</span>
 			</div>
 			<div class="data">
-				<span class="data__title ">Пошта підтвердженя</span>
+				<span class="data__title ">Mail confirmation</span>
 				<span class="data__value ">${confirm}</span>
 			</div>
 		`
@@ -122,6 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     if (!window.session || !window.session.user.isConfirm) {
       location.assign('/')
+    }
+
+    if (window.session) {
+      const { user } = window.session
+
+      if (user.role !== 2 && user.role !== 3) {
+        location.assign('/')
+      }
     }
   } catch (e) {}
 

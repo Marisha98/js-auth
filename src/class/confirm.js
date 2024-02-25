@@ -10,13 +10,16 @@ class Confirm {
     Math.floor(Math.random() * 9000) + 1000
 
   static create = (data) => {
-    this.#list.push(new Confirm(data))
+    const newConfirmation = new Confirm(data)
+    this.#list.push(newConfirmation)
 
     setTimeout(() => {
-      this.delete(code)
+      this.delete(newConfirmation.code)
     }, 24 * 60 * 60 * 1000)
 
     console.log(this.#list)
+
+    return newConfirmation.code
   }
 
   static delete = (code) => {

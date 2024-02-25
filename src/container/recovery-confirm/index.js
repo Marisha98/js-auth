@@ -4,7 +4,10 @@ import {
   REG_EXP_PASSWORD,
 } from '../../script/form'
 
-import { saveSession } from '../../script/session'
+import {
+  saveSession,
+  getSession,
+} from '../../script/session'
 
 class RecoveryConfirmForm extends Form {
   FIELD_NAME = {
@@ -14,12 +17,12 @@ class RecoveryConfirmForm extends Form {
   }
 
   FIELD_ERROR = {
-    IS_EMPTY: 'Введіть значеня в поле',
-    IS_BIG: 'Дуже довге значення, приберіть зайве',
+    IS_EMPTY: 'Enter the value in the field',
+    IS_BIG: 'Your value exceeds 30 characters',
     PASSWORD:
-      'Пароль повинен складатися з не менше ніж 8 символів, включаючи хоча б одну цифру, маленьку та велику літери',
+      'The password must consist of at least 8 characters, including number, lowercase and uppercase letters',
     PASSWORD_AGAIN:
-      'Ваш другий пароль не збігається з першим',
+      'This password has to match the first one',
   }
 
   validate = (name, value) => {
@@ -53,7 +56,7 @@ class RecoveryConfirmForm extends Form {
     } else {
       console.log(this.value)
 
-      this.setAlert('progress', 'Завантаження ...')
+      this.setAlert('progress', 'Loading ...')
     }
 
     try {
@@ -91,3 +94,16 @@ class RecoveryConfirmForm extends Form {
 }
 
 window.recoveryConfirmForm = new RecoveryConfirmForm()
+
+document.addEventListener('DOMContentLoaded', () => {
+  document
+    .querySelector('#renew')
+    .addEventListener('click', (e) => {
+      e.preventDefault()
+
+      const currentUrl = new URL(window.location.href)
+      currentUrl.searchParams.set('renew', 'true')
+
+      location.assign(currentUrl.href)
+    })
+})

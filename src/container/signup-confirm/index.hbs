@@ -1,41 +1,36 @@
-{{!
-Це код container файлу для index сторінки,
-в якому міститься код, котрий буде віддаватися по шляху (PATH) - "/"
-}}
-
 <div class="page page--background">
 	<header>
 		{{> back-button}}
 	</header>
 
 	<form class="page__section">
-		<h1 class="page__title">Підтвердження пошти</h1>
+		<h1 class="page__title">Confirmation of email</h1>
 
-		<p class="page__subtitle">На вашу пошту надіслано код для підтвердження облікового запису. Введіть його сюди</p>
+		<p class="page__subtitle">An account verification code has been sent to your email. Enter it here</p>
 
 		<div class="form">
 			<div class="form__item">
-				{{> field action="signupConfirmForm.change" label="Код" type="number" placeholder="Ваш код"
+				{{> field action="signupConfirmForm.change" label="Code" type="number" placeholder="Your code"
 				name="code"}}
 				<span name="code" class="form__error">Mistake</span>
 
 			</div>
 		</div>
 
-		<button onclick="signupConfirmForm.submit()" class="button button--disabled" type="button">Підтвердити!</button>
+		<span class="link__prefix">Lost the code?
+			<a href="/signup-confirm" class="link" id="renew">Send it again</a>
+		</span>
+
+		<button onclick="signupConfirmForm.submit()" class="button button--disabled" type="button">Confirm</button>
 
 		<span class="alert alert--disabled">Mistake</span>
 
-		<span class="link__prefix">Загубили код?
-			<a href="/signup-confirm" class="link" id="renew">Відправити ще раз</a>
-		</span>
-	</form>
+
+
+		{{#with data}}
+		{{#if confirm}}
+		<div>{{confirm}}</div>
+		{{/if}}
+		{{/with}}
 
 </div>
-
-{{!
-Цей код містить лише те, що буде виводитись в
-
-<body>
-	Адже наш layout/default.hbs має вже структуру HTML
-	}}

@@ -13,9 +13,9 @@ class SignupForm extends Form {
   }
 
   FIELD_ERROR = {
-    IS_EMPTY: 'Введіть значеня в поле',
-    IS_BIG: 'Дуже довге значення, приберіть зайве',
-    EMAIL: 'Введіть коректне значення e-mail адреси',
+    IS_EMPTY: 'Enter the value in the field',
+    IS_BIG: 'Your value exceeds 30 characters',
+    EMAIL: 'Enter the correct value of the e-mail address',
   }
 
   validate = (name, value) => {
@@ -23,7 +23,7 @@ class SignupForm extends Form {
       return this.FIELD_ERROR.IS_EMPTY
     }
 
-    if (String(value).length > 20) {
+    if (String(value).length > 30) {
       return this.FIELD_ERROR.IS_BIG
     }
 
@@ -40,7 +40,7 @@ class SignupForm extends Form {
     } else {
       console.log(this.value)
 
-      this.setAlert('progress', 'Завантаження ...')
+      this.setAlert('progress', 'Loading ...')
     }
 
     try {

@@ -10,9 +10,9 @@ class RecoveryForm extends Form {
   }
 
   FIELD_ERROR = {
-    IS_EMPTY: 'Введіть значеня в поле',
-    IS_BIG: 'Дуже довге значення, приберіть зайве',
-    EMAIL: 'Введіть коректне значення e-mail адреси',
+    IS_EMPTY: 'Enter the value in the field',
+    IS_BIG: 'Your value exceeds 30 characters',
+    EMAIL: 'Enter the correct value of the e-mail address',
   }
 
   validate = (name, value) => {
@@ -20,7 +20,7 @@ class RecoveryForm extends Form {
       return this.FIELD_ERROR.IS_EMPTY
     }
 
-    if (String(value).length > 20) {
+    if (String(value).length > 30) {
       return this.FIELD_ERROR.IS_BIG
     }
 
@@ -35,7 +35,7 @@ class RecoveryForm extends Form {
     if (this.disabled === true) {
       this.validateAll()
     } else {
-      this.setAlert('progress', 'Завантаження ...')
+      this.setAlert('progress', 'Loading ...')
     }
 
     try {
@@ -52,7 +52,9 @@ class RecoveryForm extends Form {
       if (res.ok) {
         this.setAlert('success', data.message)
 
-        location.assign('/recovery-confirm')
+        location.assign(
+          `/recovery-confirm?email=${data.email}`,
+        )
       } else {
         this.setAlert('error', data.message)
       }
