@@ -124,12 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
       location.assign('/')
     }
 
-    if (window.session) {
-      const { user } = window.session
+    const urlParams = new URLSearchParams(
+      window.location.search,
+    )
+    const idFromQuery = urlParams.get('id')
 
-      if (user.role !== 2 && user.role !== 3) {
-        location.assign('/')
-      }
+    if (
+      window.session.user.role === 1 &&
+      window.session.user.id !== Number(idFromQuery)
+    ) {
+      location.assign('/')
     }
   } catch (e) {}
 
